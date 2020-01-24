@@ -5,10 +5,10 @@ from views.questionnaires import DepressionQuestionnaireView, AnxietyQuestionnai
 
 app = create_app()
 
-admin = Admin(app, name='HealthRecord', template_mode='bootstrap3', url='/')
+admin = Admin(app, name="HealthRecord", template_mode="bootstrap3", url="/")
 admin.add_view(DepressionQuestionnaireView())
 admin.add_view(AnxietyQuestionnaireView())
 
 
-if __name__ == '__main__':    
+if __name__ == "__main__":
     app.run()
