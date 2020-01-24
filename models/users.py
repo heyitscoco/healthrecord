@@ -39,6 +39,6 @@ class User(db.Model, UserMixin):
         return f"<User: {self.username}>"
 
 
-# Setup Flask-Security
-user_datastore = SQLAlchemyUserDatastore(db, User, Role)
-security = Security(app, user_datastore)
+# # Setup Flask-Security
+# user_datastore = SQLAlchemyUserDatastore(db, User, Role)
+# security = Security(app, user_datastore)
