@@ -1,0 +1,8 @@
+.vscode/
+__pycache__/
+env/
+secrets.sh
+*.diff
+*.patch
+Notes.md
+*.pdf
