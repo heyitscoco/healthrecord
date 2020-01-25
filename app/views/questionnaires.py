@@ -1,5 +1,6 @@
 from .base import BaseView
 from models.questionnaires import DepressionQuestionnaire, AnxietyQuestionnaire
+from wtforms import RadioField
 
 
 class QuestionnaireView(BaseView):
@@ -40,6 +41,9 @@ class DepressionQuestionnaireView(QuestionnaireView):
             "label": "Thoughts that you would be better off dead, or of hurting yourself"
         },
     }
+
+    # TODO: Fix this
+    # form_overrides = {colname: RadioField for colname in form_args}
 
     def __init__(self, **kwargs):
         super().__init__(DepressionQuestionnaire, **kwargs)

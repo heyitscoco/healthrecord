@@ -1,4 +1,7 @@
 from . import db
+from sqlalchemy import event
+from .scores import AnxietyScore, DepressionScore
+
 
 RESPONCE_CHOICES = (
     "Not at all",
@@ -7,12 +10,27 @@ RESPONCE_CHOICES = (
     "Nearly every day",
 )
 
+RESPONSE_MAPPING = {text: idx for idx, text in enumerate(RESPONCE_CHOICES)}
+
 
 def question(text):
     return db.Column(text, db.Enum(*RESPONCE_CHOICES))
 
 
-class DepressionQuestionnaire(db.Model):
+class QuestionnaireMixin:
+    def score(self) -> int:
+        score = 0
+        for attr_name in dir(self):
+            if not attr_name.startswith("question"):
+                continue
+            response = getattr(self, attr_name)
+            if not response:
+                continue
+            score += RESPONSE_MAPPING[response]
+        return score
+
+
+class DepressionQuestionnaire(db.Model, QuestionnaireMixin):
 
     id = db.Column(db.Integer(), primary_key=True)
 
@@ -35,7 +53,13 @@ class DepressionQuestionnaire(db.Model):
     )
 
 
-class AnxietyQuestionnaire(db.Model):
+@event.listens_for(DepressionQuestionnaire, "after_insert")
+def score_depression_questionnaire(mapper, connection, target):
+    score = DepressionScore(score=target.score(), entry=target.id)
+    db.session.add(score)
+
+
+class AnxietyQuestionnaire(db.Model, QuestionnaireMixin):
 
     id = db.Column(db.Integer(), primary_key=True)
 
@@ -46,3 +70,9 @@ class AnxietyQuestionnaire(db.Model):
     question5 = question("Being so restless that it's hard to sit still")
     question6 = question("Becoming easily annoyed or irritable")
     question7 = question("Feeling afraid as if something awful might happen")
+
+
+@event.listens_for(AnxietyQuestionnaire, "after_insert")
+def score_anxiety_questionnaire(mapper, connection, target):
+    score = AnxietyScore(score=target.score(), entry=target.id)
+    db.session.add(score)
