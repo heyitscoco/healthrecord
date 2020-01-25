@@ -8,3 +8,6 @@ setup: compile install
 
 run:
 	python3 app/server.py
+
+test:
+	pytest
