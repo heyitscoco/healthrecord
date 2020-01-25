@@ -1,8 +1,8 @@
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
-from create_app import create_app
-from views.questionnaires import DepressionQuestionnaireView, AnxietyQuestionnaireView
-from views.scores import DepressionScoreView, AnxietyScoreView
+from .create_app import create_app
+from .views.questionnaires import DepressionQuestionnaireView, AnxietyQuestionnaireView
+from .views.scores import DepressionScoreView, AnxietyScoreView
 
 app = create_app()
 

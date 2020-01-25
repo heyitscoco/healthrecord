@@ -1,6 +1,7 @@
 from .base import BaseView
-from models.questionnaires import DepressionQuestionnaire, AnxietyQuestionnaire
 from wtforms import RadioField
+
+from app.models.questionnaires import DepressionQuestionnaire, AnxietyQuestionnaire
 
 
 class QuestionnaireView(BaseView):

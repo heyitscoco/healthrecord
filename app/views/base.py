@@ -1,5 +1,5 @@
 from flask_admin.contrib.sqla import ModelView
-from models import db
+from app.models import db
 
 
 class BaseView(ModelView):

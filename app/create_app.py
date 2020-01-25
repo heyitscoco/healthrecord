@@ -1,6 +1,7 @@
-from config import Config
 from flask import Flask
-from models import db
+
+from .config import Config
+from .models import db
 
 
 def create_app():

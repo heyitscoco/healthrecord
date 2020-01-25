@@ -1,5 +1,6 @@
 from .base import BaseView
-from models.scores import DepressionScore, AnxietyScore
+
+from app.models.scores import DepressionScore, AnxietyScore
 
 
 class ScoreView(BaseView):
