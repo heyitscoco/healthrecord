@@ -7,7 +7,6 @@ class QuestionnaireView(BaseModelView):
     can_edit = False
     can_delete = False
     can_view_details = True
-    create_modal = True
 
     def __init__(self, *args, name=None, **kwargs):
         name = self.get_name()

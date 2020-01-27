@@ -30,6 +30,11 @@ admin.add_view(AnxietyScoreView())
 
 admin.add_view(ProgressView())
 
+
+@app.before_first_request
+def before_first_request():
+    db.create_all()
+
 # define a context processor for merging flask-admin's template context into the
 # flask-security views.
 @security.context_processor
