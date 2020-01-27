@@ -1,24 +1,27 @@
-from .base import BaseView
+from .base import BaseModelView
+from app.models.scores import AnxietyScore
+from app.models.scores import DepressionScore
 
-from app.models.scores import DepressionScore, AnxietyScore
 
-
-class ScoreView(BaseView):
+class ScoreView(BaseModelView):
 
     can_create = False
     can_delete = False
     can_edit = False
 
     # TODO: figure out how to display the questionnaire type
-    # form_ajax_refs = {
-    #     'entry': {
-    #         'fields': ['id'], # ['name', 'created_at'],
-    #         'page_size': 10
-    #     }
-    # }
 
     def __init__(self, model, **kwargs):
-        super().__init__(model, category="Scores", **kwargs)
+        name = self.get_name()
+        endpoint = f'scores/{name.lower()}'
+        super().__init__(
+            model, name=name, endpoint=endpoint, category='Scores', **kwargs
+        )
+
+    @classmethod
+    def get_name(cls):
+        tokens = cls.__name__.split('ScoreView')
+        return tokens[0] if tokens else None
 
 
 class DepressionScoreView(ScoreView):

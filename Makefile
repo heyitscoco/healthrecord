@@ -7,7 +7,7 @@ install:
 setup: compile install
 
 run:
-	flask run
+	flask run --reload --debugger
 
 test:
 	pytest
